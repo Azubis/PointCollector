@@ -5,22 +5,30 @@ import 'homepage/home_page.dart';
 import 'profile_page/profile_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+      ChangeNotifierProvider(
+          create: (context) => UserModel(),
+          child: Consumer<UserModel>(
+            builder: (_, userModel, __) => MyApp(userModel),
+          )
+      )
+  );
 }
 
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
+
+  final UserModel userModel;
+
+  MyApp(this.userModel);
 }
 
 class _MyAppState extends State<MyApp> {
   int _currentIndex = 0;
-  final List<Widget> _pages = [
+  late final List<Widget> _pages = [
     HomePage(),
-    ChangeNotifierProvider(
-      create: (context) => UserModel(),
-      child: ProfilePage(),
-    )
+    ProfilePage(userModel: widget.userModel),
   ];
 
   void _onTabTapped(int index) {
