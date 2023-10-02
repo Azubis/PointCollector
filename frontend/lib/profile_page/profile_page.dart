@@ -29,7 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
               children: <Widget>[
                 CircleAvatar(
                   radius: 70,
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Theme.of(context).primaryColor,
                   child: Text(
                     Provider.of<UserModel>(context).points.toString(),
                     style: const TextStyle(
