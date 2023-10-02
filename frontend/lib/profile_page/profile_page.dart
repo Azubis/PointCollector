@@ -21,7 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
         title: 'Profile Page Example',
         home: Scaffold(
           appBar: AppBar(
-            title: Text('Profile Page'),
+            title: const Text('Profile Page'),
           ),
           body: Center(
             child: Column(
@@ -32,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   backgroundColor: Colors.blue,
                   child: Text(
                     Provider.of<UserModel>(context).points.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -42,7 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(height: 20),
                 Text(
                   Provider.of<UserModel>(context).name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 36,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -51,7 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(height: 10),
                 Text(
                   Provider.of<UserModel>(context).email,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 36,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
