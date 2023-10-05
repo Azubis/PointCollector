@@ -9,6 +9,7 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 
   late UserModel userModel;
+  MainScreen({required this.userModel});
 }
 
 class _MainScreenState extends State<MainScreen> {

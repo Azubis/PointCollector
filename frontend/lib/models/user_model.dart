@@ -10,5 +10,6 @@ class UserModel with ChangeNotifier {
   VoidCallback? incrementPoints(int increment) {
     points += increment;
     notifyListeners();
+    return null;
   }
 }

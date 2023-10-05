@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
       home: LoginScreen(),
       routes: {
         '/login': (context) => LoginScreen(),
-        '/mainScreen': (context) => MainScreen(),
+        '/mainScreen': (context) => MainScreen(userModel: widget.userModel),
       },
       debugShowCheckedModeBanner: false,
     );
