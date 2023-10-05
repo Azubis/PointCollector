@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-  // Your UserModel code here
 
 class UserModel with ChangeNotifier {
   String name;
@@ -11,5 +10,6 @@ class UserModel with ChangeNotifier {
   VoidCallback? incrementPoints(int increment) {
     points += increment;
     notifyListeners();
+    return null;
   }
 }

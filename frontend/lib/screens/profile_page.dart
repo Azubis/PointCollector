@@ -3,25 +3,25 @@ import 'package:provider/provider.dart';
 import 'package:PointCollector/models/user_model.dart';
 
 
-class ProfilePage extends StatefulWidget {
+class ProfileScreen extends StatefulWidget {
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _ProfileScreenState createState() => _ProfileScreenState();
 
-  final UserModel userModel;
+  late UserModel userModel;
 
-  ProfilePage({required this.userModel});
+  ProfileScreen({required this.userModel});
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     home:return ChangeNotifierProvider(
       create: (context) => UserModel(),
       child: MaterialApp(
-        title: 'Profile Page Example',
+        title: 'Profile Screen Example',
         home: Scaffold(
           appBar: AppBar(
-            title: const Text('Profile Page'),
+            title: const Text('Profile Screen'),
           ),
           body: Center(
             child: Column(
