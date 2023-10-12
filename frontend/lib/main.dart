@@ -1,45 +1,46 @@
-import 'package:logger/logger.dart';
+import 'package:PointCollector/screens/detail_screen.dart';
+import 'package:PointCollector/screens/home_screen.dart';
 import 'package:PointCollector/screens/login_screen.dart';
-import 'package:PointCollector/screens/main_screen.dart';
+import 'package:PointCollector/screens/profile_screen.dart';
+import 'package:logger/logger.dart';
+import 'package:PointCollector/screens/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:PointCollector/models/user_model.dart';
+
+import 'models/business_model.dart';
+import 'models/user_model.dart';
+
 
 void main() {
   Logger.level = Level.debug;
-  runApp(
-      ChangeNotifierProvider(
-          create: (context) => UserModel(),
-          child: Consumer<UserModel>(
-            builder: (_, userModel, __) => MyApp(userModel),
-          )
-      )
-  );
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
+class MyApp extends StatelessWidget {
 
-  final UserModel userModel;
-  MyApp(this.userModel);
-}
-
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Navigation Bar',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Manrope',
       ),
-      home: LoginScreen(),
+      initialRoute: '/loginScreen',
       routes: {
-        '/login': (context) => LoginScreen(),
-        '/mainScreen': (context) => MainScreen(userModel: widget.userModel),
+        '/loginScreen': (context) => LoginScreen(),
+        '/mainScreen': (context) => Navigation(body: HomeScreen()),
+
+        '/profileScreen': (context) => Navigation(body: ProfileScreen(user:
+        ModalRoute.of(context)!.settings.arguments as UserModel)),
+
+        '/detailScreen': (context) {
+          final business = ModalRoute.of(context)!.settings.arguments as Business;
+          return Navigation(body: DetailScreen(business: business));
+        },
       },
       debugShowCheckedModeBanner: false,
     );
   }
 }
+
 

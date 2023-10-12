@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login Screen#'),
+        title: Text('Login Screen'),
       ),
       body: Center(
         child: Padding(
