@@ -1,13 +1,16 @@
+import 'package:PointCollector/states/riverpod_states.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/user_model.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key, required this.user}) : super(key: key);
-
-  final UserModel user;
+class ProfileScreen extends ConsumerWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    UserModel user = ref.watch(userProvider);
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

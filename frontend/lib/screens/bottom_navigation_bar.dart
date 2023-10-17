@@ -1,52 +1,32 @@
 import 'package:PointCollector/screens/home_screen.dart';
 import 'package:PointCollector/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../states/riverpod_states.dart';
 
-import '../models/user_model.dart';
-
-//Navigation holds a widget in State to Display as body, to ensure that all the
-// screens share the same Scaffold
-class Navigation extends StatefulWidget {
-
-  final Widget body;
-
-  Navigation({required this.body});
+class Navigation extends ConsumerWidget {
 
   @override
-  _NavigationState createState() => _NavigationState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
 
+    Widget currentPage = ref.watch(currentPageProvider);
+    int currentScaffoldIndex = ref.watch(currentScaffoldIndexProvider);
 
-class _NavigationState extends State<Navigation> {
-  int selectedIndex = 0;
-
-  UserModel loadUserData() {
-    // Load your user data here
-    return UserModel.getUser();
-  }
-
-  void handleDestinationSelected(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-
-    if (index == 0) {
-      Navigator.of(context).pushNamed('/mainScreen');
-    } else if (index == 1) {
-      Navigator.of(context).pushNamed('/profileScreen', arguments: loadUserData());
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('PointCollector'),
       ),
-      body: widget.body,
       bottomNavigationBar: NavigationBar(
-        onDestinationSelected: handleDestinationSelected,
-        selectedIndex: selectedIndex,
+        onDestinationSelected: (int index){
+          ref.read(currentScaffoldIndexProvider.notifier).setCurrentScaffoldIndex(index);
+          if (index == 0) {
+            ref.read(currentPageProvider.notifier).setCurrentPage(HomeScreen());
+          } else if (index == 1) {
+            ref.read(currentPageProvider.notifier).setCurrentPage(ProfileScreen());
+          }
+        },
+        indicatorColor: Colors.amber[800],
+        selectedIndex: currentScaffoldIndex,
         destinations: const <Widget>[
           NavigationDestination(
             icon: Icon(Icons.home),
@@ -58,6 +38,10 @@ class _NavigationState extends State<Navigation> {
           ),
         ],
       ),
+      body: [
+        currentPage,
+        ProfileScreen()
+      ][currentScaffoldIndex],
     );
   }
 }

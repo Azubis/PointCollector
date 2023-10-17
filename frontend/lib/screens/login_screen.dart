@@ -14,7 +14,7 @@ class LoginScreen extends StatelessWidget {
       bool loginSuccessful = true; // Replace with your actual login logic
 
       if (loginSuccessful) {
-        Navigator.of(context).pushReplacementNamed('/mainScreen');
+        Navigator.pushNamed(context, "/home");
       }
     }
 
