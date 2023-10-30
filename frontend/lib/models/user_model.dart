@@ -15,11 +15,11 @@ class UserModel {
 
   factory UserModel.getUser() {
     return UserModel(
-      name: "Leon Riesenwade",
+      name: "Max Mustermann",
       creationDate: DateTime.now(),
-      email: "Leon@Wadenbeißer.com",
+      email: "max@mustermann.com",
       city: "Kasselfornia",
-      address: "Unterschenkel Straße. 47",
+      address: "Straße. 47",
     );
   }
 }
