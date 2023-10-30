@@ -3,8 +3,8 @@ repos:
     rev: "master"
     hooks:
       - id: dart-format
-  -   repo: https://github.com/pre-commit/pre-commit-hooks
-      rev: v3.2.0
-      hooks:
-        -   id: trailing-whitespace
-        -   id: mixed-line-ending
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+      -   id: trailing-whitespace
+      -   id: mixed-line-ending
