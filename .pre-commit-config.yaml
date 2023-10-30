@@ -3,7 +3,7 @@ repos:
     rev: "master"
     hooks:
       - id: flutter-analyze
-        args: [lib/*]
+        args: [frontend/lib/*]
   - repo: https://github.com/dluksza/flutter-analyze-pre-commit
     rev: "master"
     hooks:
