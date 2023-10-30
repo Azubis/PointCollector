@@ -1,9 +1,10 @@
-- repo: https://github.com/Cretezy/dart-format-pre-commit
-  rev: "master"
-  hooks:
-    - id: dart-format
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
+repos:
+  - repo: https://github.com/Cretezy/dart-format-pre-commit
+    rev: "master"
     hooks:
-      -   id: trailing-whitespace
-      -   id: mixed-line-ending
+      - id: dart-format
+  -   repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v3.2.0
+      hooks:
+        -   id: trailing-whitespace
+        -   id: mixed-line-ending
