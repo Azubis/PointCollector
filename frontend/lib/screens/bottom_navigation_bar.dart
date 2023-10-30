@@ -5,10 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../states/riverpod_states.dart';
 
 class Navigation extends ConsumerWidget {
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     Widget currentPage = ref.watch(currentPageProvider);
     int currentScaffoldIndex = ref.watch(currentScaffoldIndexProvider);
 
@@ -17,12 +15,16 @@ class Navigation extends ConsumerWidget {
         title: Text('PointCollector'),
       ),
       bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index){
-          ref.read(currentScaffoldIndexProvider.notifier).setCurrentScaffoldIndex(index);
+        onDestinationSelected: (int index) {
+          ref
+              .read(currentScaffoldIndexProvider.notifier)
+              .setCurrentScaffoldIndex(index);
           if (index == 0) {
             ref.read(currentPageProvider.notifier).setCurrentPage(HomeScreen());
           } else if (index == 1) {
-            ref.read(currentPageProvider.notifier).setCurrentPage(ProfileScreen());
+            ref
+                .read(currentPageProvider.notifier)
+                .setCurrentPage(ProfileScreen());
           }
         },
         indicatorColor: Colors.amber[800],
@@ -38,10 +40,7 @@ class Navigation extends ConsumerWidget {
           ),
         ],
       ),
-      body: [
-        currentPage,
-        ProfileScreen()
-      ][currentScaffoldIndex],
+      body: [currentPage, ProfileScreen()][currentScaffoldIndex],
     );
   }
 }

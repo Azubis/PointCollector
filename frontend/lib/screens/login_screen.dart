@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import '../logger.util.dart';
 
-
 class LoginScreen extends StatelessWidget {
   final log = getLogger();
 
   @override
   Widget build(BuildContext context) {
-
     void _onLoginButtonPressed() {
       log.d('_onLoginButtonPressed');
 
@@ -17,7 +15,6 @@ class LoginScreen extends StatelessWidget {
         Navigator.pushNamed(context, "/home");
       }
     }
-
 
     return Scaffold(
       appBar: AppBar(
@@ -52,16 +49,14 @@ class LoginScreen extends StatelessWidget {
                     child: Text('Login'),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                     child: Text('Registrieren'),
                   ),
                 ],
               ),
               SizedBox(height: 16.0),
               TextButton(
-                onPressed: () {
-                },
+                onPressed: () {},
                 child: Text('Passwort vergessen'),
               ),
             ],

@@ -8,7 +8,6 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     UserModel user = ref.watch(userProvider);
 
     return Center(

@@ -13,7 +13,7 @@ class UserModel {
     required this.address,
   });
 
-  factory UserModel.getUser(){
+  factory UserModel.getUser() {
     return UserModel(
       name: "Leon Riesenwade",
       creationDate: DateTime.now(),

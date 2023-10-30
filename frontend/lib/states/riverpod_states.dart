@@ -13,10 +13,10 @@ class CurrentPageState extends StateNotifier<Widget> {
   void setCurrentPage(Widget currentPage) => state = currentPage;
 }
 
-final currentPageProvider = StateNotifierProvider<CurrentPageState, Widget>(
-        (ref) {
-      return CurrentPageState();
-    });
+final currentPageProvider =
+    StateNotifierProvider<CurrentPageState, Widget>((ref) {
+  return CurrentPageState();
+});
 
 class CurrentScaffoldIndexState extends StateNotifier<int> {
   // 1. initialize with current time
@@ -25,10 +25,10 @@ class CurrentScaffoldIndexState extends StateNotifier<int> {
   void setCurrentScaffoldIndex(int index) => state = index;
 }
 
-final currentScaffoldIndexProvider = StateNotifierProvider<CurrentScaffoldIndexState, int>(
-        (ref) {
-      return CurrentScaffoldIndexState();
-    });
+final currentScaffoldIndexProvider =
+    StateNotifierProvider<CurrentScaffoldIndexState, int>((ref) {
+  return CurrentScaffoldIndexState();
+});
 
 class UserState extends StateNotifier<UserModel> {
   UserState() : super(UserModel.getUser());
@@ -50,7 +50,7 @@ class BusinessState extends StateNotifier<Future<List<Business>>> {
   }
 }
 
-final businessProvider = StateNotifierProvider<BusinessState, Future<List<Business>>>((ref) {
+final businessProvider =
+    StateNotifierProvider<BusinessState, Future<List<Business>>>((ref) {
   return BusinessState();
 });
-

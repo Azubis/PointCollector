@@ -1,18 +1,12 @@
-import 'package:PointCollector/screens/detail_screen.dart';
-import 'package:PointCollector/screens/home_screen.dart';
 import 'package:PointCollector/screens/login_screen.dart';
-import 'package:PointCollector/screens/profile_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:PointCollector/screens/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-
 void main() {
   Logger.level = Level.debug;
-  runApp(const ProviderScope(
-      child: MyApp()
-  ));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -34,5 +28,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

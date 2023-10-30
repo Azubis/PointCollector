@@ -1,16 +1,11 @@
-import 'dart:developer';
-
 import 'package:PointCollector/states/riverpod_states.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:PointCollector/models/business_model.dart';
-import 'package:PointCollector/repository/BusinessRepository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'detail_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future<List<Business>> business = ref.watch(businessProvider);
@@ -20,7 +15,7 @@ class HomeScreen extends ConsumerWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Center(
-              child: RefreshIndicator(
+            child: RefreshIndicator(
               //refresh on pull down calls setState and rebuilds the UI with
               // the new data
               onRefresh: () async {
@@ -33,24 +28,31 @@ class HomeScreen extends ConsumerWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap: () {
-                      ref.read(currentPageProvider.notifier).setCurrentPage
-                        (DetailScreen(business: snapshot.data![index]));
+                      ref.read(currentPageProvider.notifier).setCurrentPage(
+                          DetailScreen(business: snapshot.data![index]));
                     },
                     child: Container(
-                    height: 100,
-                    color: Colors.blue[100],
-                    child: Center(child: Text(snapshot.data![index].name, style: const TextStyle(fontSize: 18))),
+                      height: 100,
+                      color: Colors.blue[100],
+                      child: Center(
+                          child: Text(snapshot.data![index].name,
+                              style: const TextStyle(fontSize: 18))),
                     ),
                   );
-              },
-              separatorBuilder: (BuildContext context, int index) => const Divider(),
-              ),),
+                },
+                separatorBuilder: (BuildContext context, int index) =>
+                    const Divider(),
+              ),
+            ),
           );
+        } else if (snapshot.hasError) {
+          return const Center(
+              child: Text(
+                  'There was an error loading the data. Please try again later.'));
         }
-        else if (snapshot.hasError) {
-          return const Center(child: Text('There was an error loading the data. Please try again later.'));
-        }
-        return const Center(child: CircularProgressIndicator(),);
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
       },
     );
   }
