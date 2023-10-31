@@ -11,15 +11,15 @@ class BusinessRepository {
   late Future<List<Business>> _businesses;
   bool _isLoaded = false;
 
-  //the _singleton variable is initialized with an instance of the class
+  // the _singleton variable is initialized with an instance of the class
   static final BusinessRepository _singleton = BusinessRepository._internal();
 
-  //The factory constructor always returns the same instance of the class
+  // The factory constructor always returns the same instance of the class
   factory BusinessRepository() {
     return _singleton;
   }
 
-  //The internal constructor is only called once
+  // The internal constructor is only called once
   BusinessRepository._internal();
 
   Future<List<Business>> fetchBusinesses() async {
@@ -47,7 +47,6 @@ class BusinessRepository {
     }
   }
 
-  //getter and setter
   void set isLoaded(bool value) => _isLoaded = value;
   Future<List<Business>> get businesses => _businesses;
 }
