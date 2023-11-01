@@ -1,45 +1,30 @@
-import 'package:logger/logger.dart';
 import 'package:PointCollector/screens/login_screen.dart';
-import 'package:PointCollector/screens/main_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
+import 'package:PointCollector/screens/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:PointCollector/models/user_model.dart';
 
 void main() {
   Logger.level = Level.debug;
-  runApp(
-      ChangeNotifierProvider(
-          create: (context) => UserModel(),
-          child: Consumer<UserModel>(
-            builder: (_, userModel, __) => MyApp(userModel),
-          )
-      )
-  );
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  final UserModel userModel;
-  MyApp(this.userModel);
-}
-
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Navigation Bar',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Manrope',
       ),
       home: LoginScreen(),
       routes: {
-        '/login': (context) => LoginScreen(),
-        '/mainScreen': (context) => MainScreen(userModel: widget.userModel),
+        '/home': (context) => Navigation(),
       },
       debugShowCheckedModeBanner: false,
     );
   }
 }
-

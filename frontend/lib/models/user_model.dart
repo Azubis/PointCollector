@@ -1,15 +1,25 @@
-import 'package:flutter/material.dart';
-
-class UserModel with ChangeNotifier {
+class UserModel {
   String name;
+  DateTime creationDate;
   String email;
-  int points;
+  String city;
+  String address;
 
-  UserModel({this.name = 'example name', this.email = 'name@example.com', this.points = 1000});
+  UserModel({
+    required this.name,
+    required this.creationDate,
+    required this.email,
+    required this.city,
+    required this.address,
+  });
 
-  VoidCallback? incrementPoints(int increment) {
-    points += increment;
-    notifyListeners();
-    return null;
+  factory UserModel.getUser() {
+    return UserModel(
+      name: "Max Mustermann",
+      creationDate: DateTime.now(),
+      email: "max@mustermann.com",
+      city: "Kasselfornia",
+      address: "Straße. 47",
+    );
   }
 }
