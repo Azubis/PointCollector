@@ -15,7 +15,7 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
-    Business business = widget.business; // Access the Business object
+    Business business = widget.business;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -37,10 +37,6 @@ class _DetailScreenState extends State<DetailScreen> {
             style: TextStyle(fontSize: 16),
           ),
           SizedBox(height: 10),
-          Text(
-            'Points: ${business.points.toString()}',
-            style: TextStyle(fontSize: 16),
-          ),
         ],
       ),
     );

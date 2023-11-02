@@ -1,4 +1,4 @@
-package de.micromata.pointcollector.Controller;
+package de.micromata.pointcollector.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,12 +9,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 
 @RestController
 @RequestMapping("api")
-public class BusinessController
-{
+public class BusinessController {
+
+  Logger LOGGER = Logger.getLogger(BusinessController.class.getName());
 
   @GetMapping("/businesses")
   public List<Map<String, Object>> getAll() {
@@ -31,8 +33,11 @@ public class BusinessController
     shopEntries.add(createShopEntry("Pet Paradise", "789 Pet Park Place", "12233", 91));
     shopEntries.add(createShopEntry("Bakery Delights", "101 Sweet Street", "10876", 68));
 
+    // todo wtf??
     //randomize the order of the shops
     Collections.shuffle(shopEntries);
+
+    LOGGER.info("Returning " + shopEntries.size() + " shops");
 
     return shopEntries;
   }

@@ -1,24 +1,20 @@
 class Business {
+  final String id;
   final String name;
   final String address;
   final String zipCode;
-  final int points;
 
-  Business({
-    required this.name,
-    required this.address,
-    required this.zipCode,
-    required this.points,
-  });
+  Business(this.id, this.name, this.address, this.zipCode);
 
   factory Business.fromJson(Map<String, dynamic> json) {
     return Business(
-      name: json['name'],
-      address: json['address'],
-      zipCode: json['zipCode'],
-      points: json['points'],
+      json['id'],
+      json['name'],
+      json['address'],
+      json['zipCode'],
     );
   }
+
   static List<Business> fromJsonList(List<dynamic> jsonList) {
     return jsonList.map((json) => Business.fromJson(json)).toList();
   }

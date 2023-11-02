@@ -28,6 +28,29 @@ class BusinessRepository {
       return _businesses;
     }
 
+    Future<List<Business>> getBusinesses() async {
+      List<Business> businesses = [
+        Business("1", "Supermart", "123 Market Street", "10115"),
+        Business("2", "Electro World", "456 Tech Avenue", "10777"),
+        Business("3", "Fashion Trend", "789 Style Boulevard", "12103"),
+        Business("4", "Gadget Haven", "321 Tech Road", "13127"),
+        Business("5", "Book Nook", "567 Literary Lane", "10555"),
+        Business("6", "Sport Zone", "876 Active Avenue", "12045"),
+        Business("7", "Home Decor Emporium", "432 Interior Street", "10988"),
+        Business("8", "Pet Paradise", "789 Pet Park Place", "12233"),
+        Business("9", "Bakery Delights", "101 Sweet Street", "10876"),
+      ];
+
+      await Future.delayed(Duration(seconds: 1)); // Simulate async operation
+
+      return businesses;
+    }
+
+    _businesses = getBusinesses();
+    _isLoaded = true;
+
+    return _businesses;
+
     try {
       final response =
           await http.get(Uri.parse('http://localhost:8080/api/businesses'));
