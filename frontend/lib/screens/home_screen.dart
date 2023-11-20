@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:PointCollector/models/business_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'detail_screen.dart';
+import 'detailPage/detail_page.dart';
 
 class HomeScreen extends ConsumerWidget {
   @override
@@ -28,8 +28,12 @@ class HomeScreen extends ConsumerWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap: () {
+                      //setting the product list to the products of the selected business
+                      ref.read(productProvider.notifier).fetchProducts(
+                          snapshot.data![index].id);
+                      //setting the current page to the detail screen
                       ref.read(currentPageProvider.notifier).setCurrentPage(
-                          DetailScreen(business: snapshot.data![index]));
+                          DetailPage(business: snapshot.data![index]));
                     },
                     child: Container(
                       height: 100,

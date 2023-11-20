@@ -60,6 +60,13 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - assets/images/ec_baeckerei_mohr.png
+    - assets/images/brezel.jpeg
+    - assets/images/bigmac.jpeg
+    - assets/images/coffee.jpeg
+    - assets/images/kuchen.jpeg
+    - assets/images/schokobroetchen.jpeg
   fonts:
     - family: Manrope
       fonts:
