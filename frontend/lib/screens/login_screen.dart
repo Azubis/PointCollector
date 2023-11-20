@@ -1,15 +1,31 @@
+import 'package:PointCollector/models/login_model.dart';
 import 'package:flutter/material.dart';
 import '../logger.util.dart';
+import '../repository/BusinessRepository.dart';
 
 class LoginScreen extends StatelessWidget {
   final log = getLogger();
+  final TextEditingController identifierController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
-    void _onLoginButtonPressed() {
-      log.d('_onLoginButtonPressed');
+    void _onLoginButtonPressed() async {
+      final String identifier = identifierController.text;
+      final String password = passwordController.text;
 
-      bool loginSuccessful = true; // Replace with your actual login logic
+      final loginModel = LoginModel(identifier: identifier, password: password);
+      log.d('identifier : $identifier');
+      log.d('password : $password');
+
+      log.d('loginModel : ${loginModel.toJson()}');
+      await BusinessRepository().login(loginModel);
+
+
+
+      // Hier sollte Ihre API-Anfrage erfolgen
+      bool loginSuccessful = true;
 
       if (loginSuccessful) {
         Navigator.pushNamed(context, "/home");
@@ -26,13 +42,15 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const TextField(
+              TextField(
+                controller: identifierController,
                 decoration: InputDecoration(
                   labelText: 'Username',
                 ),
               ),
               SizedBox(height: 16.0),
-              const TextField(
+              TextField(
+                controller: passwordController,
                 obscureText: true, // Hide password
                 decoration: InputDecoration(
                   labelText: 'Password',
@@ -43,20 +61,22 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   ElevatedButton(
-                    onPressed: () {
-                      _onLoginButtonPressed();
-                    },
+                    onPressed: _onLoginButtonPressed,
                     child: Text('Login'),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // Hier können Sie die Registrierungslogik implementieren
+                    },
                     child: Text('Registrieren'),
                   ),
                 ],
               ),
               SizedBox(height: 16.0),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Hier können Sie die "Passwort vergessen" -Logik implementieren
+                },
                 child: Text('Passwort vergessen'),
               ),
             ],

@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=mydatabase'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_USER=myuser'
+    ports:
+      - '5432'
+
+  saml-idp-mock:
+    build: https://github.com/mcguinness/saml-idp.git
+    container_name: saml-idp-mock-nora
+    ports:
+      - "127.0.0.1:7000:7000"
+    entrypoint: [
+      "node", "app.js",
+      "--acs", "http://localhost:8080/saml/SSO",
+      "--aud", "http://localhost:8080/saml/SSO",
+      "--iss", "http://localhost:7000/",
+      "--host", "0.0.0.0"
+    ]

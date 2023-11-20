@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:PointCollector/models/business_model.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/login_model.dart';
+
 // This Repository is a Singleton. It fetches business data from the backend
 // ONCE. Has a factory constructor which always returns the same Instance of
 // this class. Meaning you always work with the same data
@@ -31,6 +33,36 @@ class BusinessRepository {
     try {
       final response =
           await http.get(Uri.parse('http://localhost:8080/api/businesses'));
+
+      if (response.statusCode == 200) {
+        List<dynamic> jsonData = json.decode(response.body);
+
+        _businesses = Future.value(Business.fromJsonList(jsonData));
+        _isLoaded = true;
+
+        return _businesses;
+      } else {
+        throw Exception('Failed to load businesses');
+      }
+    } catch (e) {
+      throw Exception('Failed to load businesses: $e');
+    }
+  }
+  Future<List<Business>> login(LoginModel loginModel) async {
+    if (_isLoaded) {
+      // If data is already fetched, return the cached result
+      return _businesses;
+    }
+
+    try {
+      final response =
+      await http.post(
+          Uri.parse('http://localhost:8080/api/user/login'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(loginModel)
+      );
 
       if (response.statusCode == 200) {
         List<dynamic> jsonData = json.decode(response.body);

@@ -1,0 +1,28 @@
+# ignore markdown files
+*.md
+
+# ignore typings
+*.d.ts
+
+# ignore node modules
+node_modules
+yarn.lock
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+# ignore build/coverage directories
+coverage
+build
+dist
+layer
+
+# unignore needed config files
+!jest.config.js
+
+backend/src/migration
+backend/resources
+
+# ignore builded css
+frontend/public/css/color-helper.css

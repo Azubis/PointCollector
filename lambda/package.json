@@ -1,0 +1,21 @@
+{
+    "name": "@nora/lambda",
+    "private": true,
+    "workspaces": [
+        "db-access",
+        "db-setup"
+    ],
+    "installConfig": {
+        "hoistingLimits": "dependencies"
+    },
+    "scripts": {
+        "build": "echo 'Build Skript im Lambda'",
+        "build:all": "echo 'rebuild Skript im Lambda'",
+        "build:modul": "npm run --workspaces build:all",
+        "package-dependency-layer": "npm run --workspaces package-dependency-layer",
+        "clean": "npm run --workspaces clean",
+        "prepare:layer": "npm run --workspaces prepare:layer",
+        "test": "npm run --workspaces test",
+        "test:ci": "npm run --workspaces test:ci"
+    }
+}

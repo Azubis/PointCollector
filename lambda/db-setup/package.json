@@ -1,0 +1,25 @@
+{
+    "name": "db-setup",
+    "version": "0.0.1",
+    "private": true,
+    "main": "dist/index.js",
+    "scripts": {
+        "test": "jest --passWithNoTests",
+        "test:ci": "jest --passWithNoTests",
+        "build": "echo 'Building dbsetup' && tsc -p tsconfig.build.json",
+        "cleanup": "echo 'Cleanup dbsetup' && rm -rf dist && rm -rf ../node_modules && rm -rf lambda-layer/dependency-layer",
+        "move": "cp *.cert dist",
+        "package-dependency-layer": "rm -rf lambda-layer/dependency-layer && mkdir -p lambda-layer/dependency-layer/nodejs && cp -r ../node_modules lambda-layer/dependency-layer/nodejs",
+        "build:all": "npm run cleanup && npm install && npm run build && npm run move && npm run package-dependency-layer"
+    },
+    "dependencies": {
+        "@aws-lambda-powertools/logger": "^1.8.0",
+        "@aws-sdk/client-secrets-manager": "^3.312.0",
+        "postgresql-client": "^2.5.5"
+    },
+    "devDependencies": {
+        "@aws-sdk/client-secrets-manager": "^3.370.0",
+        "@types/aws-lambda": "^8.10.110",
+        "@types/node": "^20.4.2"
+    }
+}
