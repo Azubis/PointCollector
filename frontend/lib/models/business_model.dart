@@ -1,17 +1,22 @@
 class Business {
-  final String id;
+  final int id;
   final String name;
   final String address;
   final String zipCode;
 
-  Business(this.id, this.name, this.address, this.zipCode);
+  Business({
+    required this.id,
+    required this.name,
+    required this.address,
+    required this.zipCode,
+  });
 
   factory Business.fromJson(Map<String, dynamic> json) {
     return Business(
-      json['id'],
-      json['name'],
-      json['address'],
-      json['zipCode'],
+      id: json['id'],
+      name: json['name'],
+      address: json['address'],
+      zipCode: json['zipCode'],
     );
   }
 

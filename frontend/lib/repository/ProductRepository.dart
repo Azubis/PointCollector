@@ -8,63 +8,36 @@ import 'package:http/http.dart' as http;
 // ONCE. Has a factory constructor which always returns the same Instance of
 // this class. Meaning you always work with the same data
 // and only receive new businesses on a manual reload
-class BusinessRepository {
-  late Future<List<Business>> _businesses;
+class ProductRepository {
   late Future<List<ProductModel>> _products;
-  bool _isLoaded = false;
+  int _businessLoaded = 0;
 
   // the _singleton variable is initialized with an instance of the class
-  static final BusinessRepository _singleton = BusinessRepository._internal();
+  static final ProductRepository _singleton = ProductRepository._internal();
 
   // The factory constructor always returns the same instance of the class
-  factory BusinessRepository() {
+  factory ProductRepository() {
     return _singleton;
   }
 
   // The internal constructor is only called once
-  BusinessRepository._internal();
+  ProductRepository._internal();
 
-  Future<List<Business>> fetchBusinesses() async {
-    if (_isLoaded) {
-      // If data is already fetched, return the cached result
-      return _businesses;
-    }
-
-    try {
-      final response =
-          await http.get(Uri.parse('http://localhost:8080/api/businesses'));
-
-      if (response.statusCode == 200) {
-        List<dynamic> jsonData = json.decode(response.body);
-
-        _businesses = Future.value(Business.fromJsonList(jsonData));
-        _isLoaded = true;
-
-        return _businesses;
-      } else {
-        throw Exception('Failed to load businesses');
-      }
-    } catch (e) {
-      throw Exception('Failed to load businesses: $e');
-    }
-  }
-
-  Future<List<ProductModel>> fetchProducts() async {
-    if (_isLoaded) {
+  Future<List<ProductModel>> fetchProducts(int id) async {
+    if (_businessLoaded == id) {
       // If data is already fetched, return the cached result
       return _products;
     }
 
     try {
-      final response =
-          await http.get(Uri.parse('http://localhost:8080/api/products'));
+      final response = await http.get(
+          Uri.parse('http://localhost:8080/api/products/' + id.toString()));
 
       if (response.statusCode == 200) {
         List<dynamic> jsonData = json.decode(response.body);
 
         _products = Future.value(ProductModel.fromJsonList(jsonData));
-        _isLoaded = true;
-
+        _businessLoaded = id;
         return _products;
       } else {
         throw Exception('Failed to load products');
@@ -74,7 +47,9 @@ class BusinessRepository {
     }
   }
 
-  void set isLoaded(bool value) => _isLoaded = value;
-  Future<List<Business>> get businesses => _businesses;
+  void setLoadedFalse() {
+    _businessLoaded = 0;
+  }
+
   Future<List<ProductModel>> get products => _products;
 }

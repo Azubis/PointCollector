@@ -58,9 +58,14 @@ class BusinessListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        ref.read(currentScreenProvider.notifier).setCurrentScreen(
-              DetailScreen(business: snapshot.data![index]),
-            );
+        // set the product list to the products of the selected business
+        ref
+            .read(productProvider.notifier)
+            .fetchProducts(snapshot.data![index].id);
+        // set the current screen to the detail screen
+        ref
+            .read(currentScreenProvider.notifier)
+            .setCurrentScreen(DetailScreen(business: snapshot.data![index]));
       },
       child: Container(
         padding: EdgeInsets.all(10),
