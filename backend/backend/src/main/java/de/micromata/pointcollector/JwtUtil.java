@@ -1,12 +1,12 @@
 package de.micromata.pointcollector;
 
-import de.micromata.pointcollector.models.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -19,7 +19,8 @@ import java.util.Date;
 public class JwtUtil {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
 
-    private final String SECRET_KEY = "yc&Mym^KKKKJHJHBHJBHJHGHGFGFFDDDSDFGDFFHCGHFJHKJHJHHGHJKHJHJHJHGHVGGVGCRTFUIHKJHJHGBZGIZUKHLJHUTFRDES32AA2QQWERTZUIOPÜÄÖLKJHGFDSA<yxcvbnm,.-.,mnbvcxyasdfgjpüpoiuztrewq1234567890ß098765432wertzuiopölkjhgfdsxcvbnm,.-.,mnbvcxy<yxcghjklöäpoiuztrewIC8DeGc9Nvi32Bf&EuhZf77";
+    @Value("${SECRET.KEY}")
+    private String SECRET_KEY;
 
     public String generateJwtToken(String username) {
 
