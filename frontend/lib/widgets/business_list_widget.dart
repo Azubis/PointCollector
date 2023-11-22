@@ -106,10 +106,12 @@ class BusinessListItem extends StatelessWidget {
                     Text(
                       snapshot.data![index].name,
                       style: const TextStyle(fontSize: 18),
+                      textAlign: TextAlign.center,
                     ),
                     Text(
                       snapshot.data![index].address,
                       style: TextStyle(fontSize: 14, color: Colors.grey),
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),

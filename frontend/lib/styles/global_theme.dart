@@ -4,6 +4,8 @@ var primaryColorLight = Colors.blue[100];
 
 ThemeData globalTheme = ThemeData(
   primaryColor: Colors.blue[500],
+  primarySwatch: Colors.blue,
+  fontFamily: 'Manropes',
   primaryColorLight: primaryColorLight,
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: AppBarTheme(
