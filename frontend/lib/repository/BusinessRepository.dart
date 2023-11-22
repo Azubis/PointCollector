@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 // and only receive new businesses on a manual reload
 class BusinessRepository {
   late Future<List<Business>> _businesses;
-  late Future<List<ProductModel> > _products;
+  late Future<List<ProductModel>> _products;
   bool _isLoaded = false;
 
   // the _singleton variable is initialized with an instance of the class

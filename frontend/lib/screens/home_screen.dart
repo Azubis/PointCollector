@@ -1,9 +1,8 @@
 import 'package:PointCollector/states/riverpod_states.dart';
+import 'package:PointCollector/widgets/business_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:PointCollector/models/business_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'detailPage/detail_page.dart';
 
 class HomeScreen extends ConsumerWidget {
   @override
@@ -14,41 +13,7 @@ class HomeScreen extends ConsumerWidget {
       future: business,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Center(
-            child: RefreshIndicator(
-              //refresh on pull down calls setState and rebuilds the UI with
-              // the new data
-              onRefresh: () async {
-                ref.read(businessProvider.notifier).reloadBusinesses();
-              },
-              //ListView.separated is used to display a list of the fetched data
-              child: ListView.separated(
-                padding: const EdgeInsets.all(8),
-                itemCount: snapshot.data!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () {
-                      //setting the product list to the products of the selected business
-                      ref.read(productProvider.notifier).fetchProducts(
-                          snapshot.data![index].id);
-                      //setting the current page to the detail screen
-                      ref.read(currentPageProvider.notifier).setCurrentPage(
-                          DetailPage(business: snapshot.data![index]));
-                    },
-                    child: Container(
-                      height: 100,
-                      color: Colors.blue[100],
-                      child: Center(
-                          child: Text(snapshot.data![index].name,
-                              style: const TextStyle(fontSize: 18))),
-                    ),
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) =>
-                    const Divider(),
-              ),
-            ),
-          );
+          return BusinessList(ref: ref, snapshot: snapshot);
         } else if (snapshot.hasError) {
           return const Center(
               child: Text(

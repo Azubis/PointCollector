@@ -8,16 +8,16 @@ import '../models/product_model.dart';
 import '../models/user_model.dart';
 import '../repository/BusinessRepository.dart';
 
-class CurrentPageState extends StateNotifier<Widget> {
+class CurrentScreenState extends StateNotifier<Widget> {
   // 1. initialize with current time
-  CurrentPageState() : super(HomeScreen());
+  CurrentScreenState() : super(HomeScreen());
 
-  void setCurrentPage(Widget currentPage) => state = currentPage;
+  void setCurrentScreen(Widget currentScreen) => state = currentScreen;
 }
 
-final currentPageProvider =
-    StateNotifierProvider<CurrentPageState, Widget>((ref) {
-  return CurrentPageState();
+final currentScreenProvider =
+    StateNotifierProvider<CurrentScreenState, Widget>((ref) {
+  return CurrentScreenState();
 });
 
 class CurrentScaffoldIndexState extends StateNotifier<int> {
@@ -45,7 +45,7 @@ final userProvider = StateNotifierProvider<UserState, UserModel>((ref) {
 class BusinessState extends StateNotifier<Future<List<Business>>> {
   BusinessState() : super(BusinessRepository().fetchBusinesses());
 
-  //function to reload the businesses
+  // function to reload the businesses
   void reloadBusinesses() {
     BusinessRepository().isLoaded = false;
     state = BusinessRepository().fetchBusinesses();
@@ -64,6 +64,7 @@ class ProductState extends StateNotifier<Future<List<ProductModel>>> {
   void fetchProducts(int id) {
     state = ProductRepository().fetchProducts(id);
   }
+
   void reloadProducts(int id) {
     ProductRepository().setLoadedFalse();
     state = ProductRepository().fetchProducts(id);
