@@ -9,6 +9,7 @@ import '../../models/product_model.dart';
 import '../../states/riverpod_states.dart';
 
 class DetailPage extends ConsumerWidget {
+
   late final Business business;
   late final ProductModel product;
 
@@ -16,6 +17,7 @@ class DetailPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    int redeemPoints = ref.watch(redeemPointProvider);
     return DefaultTabController(
       length: 3,
       child: Column(
@@ -56,8 +58,15 @@ class DetailPage extends ConsumerWidget {
                   children: [
                     Center(child: Text("Point Count: ", style: TextStyle(fontSize:
                     25, fontWeight: FontWeight.bold))),
-                    Center(child: Text("500", style: TextStyle(fontSize:
+                    Center(child: Text(redeemPoints.toString(), style: TextStyle
+                      (fontSize:
                     35, fontWeight: FontWeight.bold, color: Colors.blue))),
+                    Center(
+                    child: Icon(
+                    Icons.auto_awesome_rounded,
+                    size: 24,
+                    color: Colors.blue,
+                    )),
                   ],
                 ),
               ),

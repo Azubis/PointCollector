@@ -1,4 +1,5 @@
 import 'package:PointCollector/repository/ProductRepository.dart';
+import 'package:PointCollector/repository/UserRepository.dart';
 import 'package:PointCollector/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -68,9 +69,21 @@ class ProductState extends StateNotifier<Future<List<ProductModel>>> {
     ProductRepository().setLoadedFalse();
     state = ProductRepository().fetchProducts(id);
   }
+
 }
 
 final productProvider =
     StateNotifierProvider<ProductState, Future<List<ProductModel>>>((ref) {
   return ProductState();
+});
+
+class RedeemPointState extends StateNotifier<int> {
+  RedeemPointState() : super(UserRepository().getPoints());
+
+  void setPoints(int points) => state = points;
+}
+
+final redeemPointProvider =
+    StateNotifierProvider<RedeemPointState, int>((ref) {
+  return RedeemPointState();
 });
