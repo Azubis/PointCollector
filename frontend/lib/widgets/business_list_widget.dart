@@ -17,7 +17,6 @@ class BusinessList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).primaryColorLight,
       child: Center(
         child: RefreshIndicator(
           color: Theme.of(context).primaryColor,
