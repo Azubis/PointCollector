@@ -2,7 +2,7 @@
 FROM openjdk:17-jdk
 
 # Argument für die Quelldatei des Builds
-ARG JAR_FILE=backend/target/*.jar
+ARG JAR_FILE=./backend/target/*.jar
 
 # Kopieren der JAR-Datei ins Image
 COPY ${JAR_FILE} app.jar
