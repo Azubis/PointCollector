@@ -1,13 +1,15 @@
-# Basis-Image mit Java 17
-FROM openjdk:17-jdk
+#
+# Build stage
+#
+FROM maven:3.8.2-openjdk-17 AS build
+WORKDIR /app
+COPY backend/ .
+RUN mvn clean package -DskipTests
 
-# Argument für die Quelldatei des Builds
-ARG JAR_FILE=./backend/target/*.jar
-
-# Kopieren der JAR-Datei ins Image
-COPY ${JAR_FILE} app.jar
-
-# Befehl zum Starten der Anwendung
-ENTRYPOINT ["java","-jar","/app.jar"]
-
+#
+# Package stage
+#
+FROM openjdk:17-jdk-slim
+COPY --from=build /app/target/demo-0.0.1-SNAPSHOT.jar demo.jar
 EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "demo.jar"]
