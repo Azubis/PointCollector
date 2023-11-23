@@ -1,18 +1,20 @@
 import 'package:PointCollector/screens/home_screen.dart';
+import 'package:PointCollector/screens/point_distribution_screen.dart';
 import 'package:PointCollector/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../states/riverpod_states.dart';
+
+import '../states/current_screen_state.dart';
 
 class Navigation extends ConsumerWidget {
   List<Widget> navigation = [
     HomeScreen(),
+    PointDistributionScreen(),
     ProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Widget currentScreen = ref.watch(currentScreenProvider);
     int currentScaffoldIndex = ref.watch(currentScaffoldIndexProvider);
 
     return Scaffold(
@@ -36,11 +38,15 @@ class Navigation extends ConsumerWidget {
               label: 'Home',
             ),
             NavigationDestination(
+              icon: Icon(Icons.control_point),
+              label: 'Point Distribution',
+            ),
+            NavigationDestination(
               icon: Icon(Icons.person),
               label: 'Profile',
             ),
           ]),
-      body: [currentScreen, ProfileScreen()][currentScaffoldIndex],
+      body: navigation[currentScaffoldIndex],
     );
   }
 }

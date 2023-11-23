@@ -1,4 +1,4 @@
-package de.micromata.pointcollector.Controller;
+package de.micromata.pointcollector.controller;
 
 import org.springframework.web.bind.annotation.*;
 

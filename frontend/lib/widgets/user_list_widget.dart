@@ -1,18 +1,15 @@
-import 'package:PointCollector/models/business_model.dart';
-import 'package:PointCollector/screens/detail_screen.dart';
+import 'package:PointCollector/models/user_model.dart';
 import 'package:PointCollector/styles/global_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../states/business_state.dart';
-import '../states/current_screen_state.dart';
-import '../states/product_state.dart';
+import '../states/user_state.dart';
 
-class BusinessList extends StatelessWidget {
+class UserListWidget extends StatelessWidget {
   final WidgetRef ref;
-  final AsyncSnapshot<List<Business>> snapshot;
+  final AsyncSnapshot<List<User>> snapshot;
 
-  BusinessList({
+  UserListWidget({
     required this.ref,
     required this.snapshot,
   });
@@ -25,13 +22,13 @@ class BusinessList extends StatelessWidget {
         child: RefreshIndicator(
           color: Theme.of(context).primaryColor,
           onRefresh: () async {
-            ref.read(businessProvider.notifier).reloadBusinesses();
+            ref.read(userProvider.notifier).reloadUsers();
           },
           child: ListView.separated(
             padding: const EdgeInsets.all(8),
             itemCount: snapshot.data!.length,
             itemBuilder: (BuildContext context, int index) {
-              return BusinessListItem(
+              return UserListWidgetItem(
                 ref: ref,
                 snapshot: snapshot,
                 index: index,
@@ -46,12 +43,12 @@ class BusinessList extends StatelessWidget {
   }
 }
 
-class BusinessListItem extends StatelessWidget {
+class UserListWidgetItem extends StatelessWidget {
   final WidgetRef ref;
-  final AsyncSnapshot<List<Business>> snapshot;
+  final AsyncSnapshot<List<User>> snapshot;
   final int index;
 
-  BusinessListItem({
+  UserListWidgetItem({
     required this.ref,
     required this.snapshot,
     required this.index,
@@ -60,16 +57,7 @@ class BusinessListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        // set the product list to the products of the selected business
-        ref
-            .read(productProvider.notifier)
-            .fetchProducts(snapshot.data![index].id);
-        // set the current screen to the detail screen
-        ref
-            .read(currentScreenProvider.notifier)
-            .setCurrentScreen(DetailScreen(business: snapshot.data![index]));
-      },
+      onTap: () {},
       child: Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -79,28 +67,7 @@ class BusinessListItem extends StatelessWidget {
         child: Container(
           child: Row(
             children: [
-              // Left side: Business image
-              Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: globalTheme.primaryColor,
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 2,
-                  ),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(48),
-                  child: Image.asset(
-                    'assets/images/business_image_0.png',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-
-              // Middle: Business name and address
+              // Middle: user name
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,

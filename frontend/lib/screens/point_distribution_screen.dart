@@ -1,20 +1,19 @@
-import 'package:PointCollector/widgets/business_list_widget.dart';
+import 'package:PointCollector/states/user_state.dart';
 import 'package:flutter/material.dart';
-import 'package:PointCollector/models/business_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../states/business_state.dart';
+import '../models/user_model.dart';
 
-class HomeScreen extends ConsumerWidget {
+class PointDistributionScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Future<List<Business>> business = ref.watch(businessProvider);
+    Future<User> user = ref.watch(userProvider);
 
-    return FutureBuilder<List<Business>>(
-      future: business,
+    return FutureBuilder<User>(
+      future: user,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return BusinessList(ref: ref, snapshot: snapshot);
+          return Text('UserList(ref: ref, snapshot: snapshot);');
         } else if (snapshot.hasError) {
           return const Center(
               child: Text(

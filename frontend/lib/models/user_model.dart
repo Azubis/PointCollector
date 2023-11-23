@@ -1,11 +1,13 @@
-class UserModel {
+class User {
+  int id;
   String name;
   DateTime creationDate;
   String email;
   String city;
   String address;
 
-  UserModel({
+  User({
+    required this.id,
     required this.name,
     required this.creationDate,
     required this.email,
@@ -13,13 +15,18 @@ class UserModel {
     required this.address,
   });
 
-  factory UserModel.getUser() {
-    return UserModel(
-      name: "Max Mustermann",
-      creationDate: DateTime.now(),
-      email: "max@mustermann.com",
-      city: "Kasselfornia",
-      address: "Straße. 47",
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      name: json['name'],
+      creationDate: DateTime.parse(json['creationDate']),
+      email: json['email'],
+      city: json['city'],
+      address: json['address'],
     );
+  }
+
+  static List<User> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((json) => User.fromJson(json)).toList();
   }
 }
