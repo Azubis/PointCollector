@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 // this class. Meaning you always work with the same data
 // and only receive new businesses on a manual reload
 class ProductRepository {
-  late Future<List<ProductModel> > _products;
+  late Future<List<ProductModel>> _products;
   int _businessLoaded = 0;
 
   // the _singleton variable is initialized with an instance of the class
@@ -30,8 +30,8 @@ class ProductRepository {
     }
 
     try {
-      final response =
-      await http.get(Uri.parse('http://localhost:8080/api/products/' + id.toString()));
+      final response = await http.get(
+          Uri.parse('http://localhost:8080/api/products/' + id.toString()));
 
       if (response.statusCode == 200) {
         List<dynamic> jsonData = json.decode(response.body);
@@ -46,8 +46,10 @@ class ProductRepository {
       throw Exception('Failed to load products: $e');
     }
   }
+
   void setLoadedFalse() {
     _businessLoaded = 0;
   }
+
   Future<List<ProductModel>> get products => _products;
 }
