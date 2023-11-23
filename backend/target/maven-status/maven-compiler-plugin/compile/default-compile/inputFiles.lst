@@ -5,6 +5,7 @@
 /Users/jonasbernst/projects/PointCollector/backend/src/main/java/de/micromata/pointcollector/WebController.java
 /Users/jonasbernst/projects/PointCollector/backend/src/main/java/de/micromata/pointcollector/controller/UserController.java
 /Users/jonasbernst/projects/PointCollector/backend/src/main/java/de/micromata/pointcollector/JwtRequestFilter.java
+/Users/jonasbernst/projects/PointCollector/backend/src/main/java/de/micromata/pointcollector/controller/test.java
 /Users/jonasbernst/projects/PointCollector/backend/src/main/java/de/micromata/pointcollector/PointCollectorApplication.java
 /Users/jonasbernst/projects/PointCollector/backend/src/main/java/de/micromata/pointcollector/dto/UserDTO.java
 /Users/jonasbernst/projects/PointCollector/backend/src/main/java/de/micromata/pointcollector/controller/BusinessController.java
