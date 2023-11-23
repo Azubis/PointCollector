@@ -1,0 +1,14 @@
+de/micromata/pointcollector/dto/UserDTO.class
+de/micromata/pointcollector/dto/UserLoginDTO.class
+de/micromata/pointcollector/models/User.class
+de/micromata/pointcollector/JwtRequestFilter.class
+de/micromata/pointcollector/service/UserDetailsServiceImpl.class
+de/micromata/pointcollector/controller/BusinessController.class
+de/micromata/pointcollector/controller/UserController.class
+de/micromata/pointcollector/JwtUtil.class
+de/micromata/pointcollector/WebController.class
+de/micromata/pointcollector/service/UserService.class
+de/micromata/pointcollector/AuthEntryPointJwt.class
+de/micromata/pointcollector/service/AuthenticationResponse.class
+de/micromata/pointcollector/SecurityConfigurer.class
+de/micromata/pointcollector/PointCollectorApplication.class
