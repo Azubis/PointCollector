@@ -22,7 +22,8 @@ public class UserController {
     private UserService userService;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
-	@CrossOrigin(origins = "http://localhost:51962")
+
+	@CrossOrigin
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLoginDTO userDTO) throws Exception {
 

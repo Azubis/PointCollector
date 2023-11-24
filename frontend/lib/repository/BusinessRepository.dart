@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:PointCollector/models/business_model.dart';
+import 'package:PointCollector/models/product_model.dart';
 import 'package:http/http.dart' as http;
 
 // This Repository is a Singleton. It fetches business data from the backend
@@ -9,6 +10,7 @@ import 'package:http/http.dart' as http;
 // and only receive new businesses on a manual reload
 class BusinessRepository {
   late Future<List<Business>> _businesses;
+  late Future<List<ProductModel>> _products;
   bool _isLoaded = false;
 
   // the _singleton variable is initialized with an instance of the class
@@ -47,6 +49,32 @@ class BusinessRepository {
     }
   }
 
+  Future<List<ProductModel>> fetchProducts() async {
+    if (_isLoaded) {
+      // If data is already fetched, return the cached result
+      return _products;
+    }
+
+    try {
+      final response =
+          await http.get(Uri.parse('http://localhost:8080/api/products'));
+
+      if (response.statusCode == 200) {
+        List<dynamic> jsonData = json.decode(response.body);
+
+        _products = Future.value(ProductModel.fromJsonList(jsonData));
+        _isLoaded = true;
+
+        return _products;
+      } else {
+        throw Exception('Failed to load products');
+      }
+    } catch (e) {
+      throw Exception('Failed to load products: $e');
+    }
+  }
+
   void set isLoaded(bool value) => _isLoaded = value;
   Future<List<Business>> get businesses => _businesses;
+  Future<List<ProductModel>> get products => _products;
 }
