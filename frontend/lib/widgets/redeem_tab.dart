@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/business_model.dart';
 import '../../models/product_model.dart';
 import '../../states/riverpod_states.dart';
+import '../states/user_states.dart';
 
 class RedeemTab extends ConsumerWidget {
   final Business business;

@@ -1,3 +1,4 @@
+import 'package:PointCollector/states/user_states.dart';
 import 'package:PointCollector/widgets/buy_tab.dart';
 import 'package:PointCollector/widgets/overview_tab.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,6 @@ import 'package:PointCollector/models/business_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/product_model.dart';
-import '../states/riverpod_states.dart';
 import '../widgets/redeem_tab.dart';
 
 class DetailScreen extends ConsumerWidget {
