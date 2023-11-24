@@ -1,15 +1,49 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:PointCollector/models/login_model.dart';
 import '../logger.util.dart';
+import '../repository/BusinessRepository.dart';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatelessWidget {
   final log = getLogger();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  Future<bool> login(LoginModel loginModel) async {
+    final url = Uri.parse('http://localhost:8080/api/user/login');
+    final headers = {
+      'Content-Type': 'application/json',
+      // Weitere Header, die Sie benötigen, wie z.B. Auth-Token
+    };
+
+    final body = json.encode(loginModel);
+
+    final response = await http.post(url, headers: headers, body: body);
+    log.d('response: ' + response.toString());
+    if (response.statusCode == 200) {
+      // Erfolgreiche Anfrageverarbeitung
+      return true;
+    } else {
+      // Anfrage fehlgeschlagen, verarbeiten Sie Fehlermeldungen hier
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    void _onLoginButtonPressed() {
+    void _onLoginButtonPressed() async {
+      final String username = usernameController.text;
+      final String password = passwordController.text;
+
+
+      final loginModel = LoginModel(identifier: username, password: password);
+
       log.d('_onLoginButtonPressed');
 
-      bool loginSuccessful = true; // Replace with your actual login logic
+      // Hier sollte Ihre API-Anfrage erfolgen
+      final loginSuccessful = await login(loginModel);
 
       if (loginSuccessful) {
         Navigator.pushNamed(context, "/home");
@@ -27,13 +61,15 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const TextField(
+              TextField(
+                controller: usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username',
                 ),
               ),
               SizedBox(height: 16.0),
-              const TextField(
+              TextField(
+                controller: passwordController,
                 obscureText: true, // Hide password
                 decoration: InputDecoration(
                   labelText: 'Password',
@@ -44,20 +80,24 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   ElevatedButton(
-                    onPressed: () {
-                      _onLoginButtonPressed();
+                    onPressed: () => {
+                      _onLoginButtonPressed()
                     },
                     child: Text('Login'),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // Hier können Sie die Registrierungslogik implementieren
+                    },
                     child: Text('Registrieren'),
                   ),
                 ],
               ),
               SizedBox(height: 16.0),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Hier können Sie die "Passwort vergessen" -Logik implementieren
+                },
                 child: Text('Passwort vergessen'),
               ),
             ],
