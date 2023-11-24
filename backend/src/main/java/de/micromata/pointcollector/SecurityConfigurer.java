@@ -57,7 +57,7 @@ public class SecurityConfigurer {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
             .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
             .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/user/login", "/api/user/register","/").permitAll()
+            .requestMatchers("/api/*", "/api/user/register","/").permitAll()
             .anyRequest().authenticated())
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

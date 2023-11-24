@@ -12,7 +12,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api")
 public class BusinessController
 {
 
