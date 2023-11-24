@@ -1,5 +1,10 @@
 package de.micromata.pointcollector.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,11 +12,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Date;
 
+@Entity
+@RequiredArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@RequiredArgsConstructor
-public class User implements UserDetails {
+@Table(name = "pointUser")
+public class PointUser implements UserDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @NonNull
     private String name;
     @NonNull
@@ -24,8 +35,6 @@ public class User implements UserDetails {
     private String city;
     @NonNull
     private Date creationDate;
-
-    private String id;
 
     @Override
     public String toString() {

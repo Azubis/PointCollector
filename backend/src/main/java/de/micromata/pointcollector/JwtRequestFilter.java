@@ -1,8 +1,7 @@
 package de.micromata.pointcollector;
 
-import de.micromata.pointcollector.models.User;
+import de.micromata.pointcollector.models.PointUser;
 import de.micromata.pointcollector.service.UserDetailsServiceImpl;
-import de.micromata.pointcollector.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -37,7 +35,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             if (jwt != null && jwtUtil.validateJwtToken(jwt) && SecurityContextHolder.getContext().getAuthentication()==null) {
                 String username = jwtUtil.getUserNameFromJwtToken(jwt);
 
-                User userDetails = userDetailsService.loadUserByUsername(username);
+                PointUser userDetails = userDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
                         userDetails,
@@ -55,7 +53,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String jwt = null;
 
         if (name !=null){
-            User user = this.userDetailsService.loadUserByUsername(name);
+            PointUser user = this.userDetailsService.loadUserByUsername(name);
             if(jwtUtil.validateJwtToken(jwt)){
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =new UsernamePasswordAuthenticationToken(
                     user,null,user.getAuthorities());
