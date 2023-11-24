@@ -18,6 +18,8 @@ class Navigation extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('PointCollector'),
+        automaticallyImplyLeading: false,
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       bottomNavigationBar: NavigationBar(
           onDestinationSelected: (int index) {
