@@ -13,4 +13,4 @@ RUN mv $(find /app -name '*.jar' -type f) /app/demo.jar
 FROM openjdk:17-jdk-slim
 COPY --from=build /app/demo.jar .
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "demo.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=prod","-jar", "demo.jar"]
