@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-interface UserRepository extends JpaRepository<PointUser, Long>
+public interface UserRepository extends JpaRepository<PointUser, Long>
 {
 
+  PointUser findByName(String currentUserName);
 }

@@ -44,11 +44,12 @@ public class PointUser implements UserDetails {
                 '}';
     }
 
+    Long getId() {
+        return id;
+    }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
+    public Collection<? extends GrantedAuthority> getAuthorities() {return null; }
 
     @Override
     public String getUsername() {
