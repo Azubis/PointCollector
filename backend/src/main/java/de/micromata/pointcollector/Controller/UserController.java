@@ -1,4 +1,4 @@
-package de.micromata.pointcollector.controller;
+package de.micromata.pointcollector.Controller;
 
 
 import de.micromata.pointcollector.dto.UserDTO;
