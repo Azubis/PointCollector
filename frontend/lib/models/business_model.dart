@@ -3,6 +3,8 @@ class Business {
   final String name;
   final String address;
   final String zipCode;
+  final String image;
+  final String logo;
   final int points;
 
   Business({
@@ -10,6 +12,8 @@ class Business {
     required this.name,
     required this.address,
     required this.zipCode,
+    required this.image,
+    required this.logo,
     required this.points,
   });
 
@@ -19,9 +23,12 @@ class Business {
       name: json['name'],
       address: json['address'],
       zipCode: json['zipCode'],
+      image: json['image'],
+      logo: json['logo'],
       points: json['points'],
     );
   }
+
   static List<Business> fromJsonList(List<dynamic> jsonList) {
     return jsonList.map((json) => Business.fromJson(json)).toList();
   }

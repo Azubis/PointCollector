@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 
 class LoginModel with ChangeNotifier {
-  String name;
+  String identifier;
   String email;
   String password;
 
-  LoginModel(
-      {this.name = 'example name',
+  LoginModel({
+      this.identifier = 'example name',
       this.email = 'name@example.com',
-      this.password = ""});
+      this.password = ""
+  });
+
+  Map toJson() => {
+    'identifier': identifier,
+    'email': email,
+    'password': password,
+  };
 }

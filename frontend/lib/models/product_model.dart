@@ -25,4 +25,8 @@ class Product {
       isRedeemable: json['isRedeemable'],
     );
   }
+
+  static List<Product> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((json) => Product.fromJson(json)).toList();
+  }
 }

@@ -1,8 +1,9 @@
 import 'package:PointCollector/screens/login_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-import 'package:PointCollector/screens/bottom_navigation_bar.dart';
+import 'package:PointCollector/screens/navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:PointCollector/styles/global_theme.dart';
 
 void main() {
   Logger.level = Level.debug;
@@ -15,12 +16,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Navigation Bar',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'Manrope',
-      ),
-      home: LoginScreen(),
+      title: 'Point Collector',
+      theme: globalTheme,
+      home: Navigation(),
       routes: {
         '/home': (context) => Navigation(),
       },

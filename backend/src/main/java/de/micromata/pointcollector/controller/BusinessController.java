@@ -3,26 +3,22 @@ package de.micromata.pointcollector.controller;
 import de.micromata.pointcollector.dto.BusinessDTO;
 import de.micromata.pointcollector.models.Business;
 import de.micromata.pointcollector.models.PointUser;
+import de.micromata.pointcollector.models.Product;
 import de.micromata.pointcollector.models.UserPoints;
 import de.micromata.pointcollector.repository.BusinessRepository;
 import de.micromata.pointcollector.repository.PointsRepository;
-import de.micromata.pointcollector.repository.ProductRepository;
 import de.micromata.pointcollector.repository.UserRepository;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -47,30 +43,32 @@ public class BusinessController
     //get all businesses from database
     List<Business> businesses = businessRepository.findAll();
     List<BusinessDTO> businessDTOS = new ArrayList<>();
+    //find user by name
+    Optional<PointUser> user = userRepository.findById(1L);
 
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (!(authentication instanceof AnonymousAuthenticationToken)) {
-      String currentUserName = authentication.getName();
-      //find user by name
-      PointUser user = userRepository.findByName(currentUserName);
-      //get points from user
-      List<UserPoints> userPoints = pointsRepository.findByUser(user);
-      //set points for business based on user
-      for (Business business : businesses) {
-        for (UserPoints userPoint : userPoints) {
-          if (userPoint.getBusiness().getId().equals(business.getId())) {
-            BusinessDTO businessDTO = new BusinessDTO();
-            businessDTO.setId(business.getId());
-            businessDTO.setName(business.getName());
-            businessDTO.setAddress(business.getAddress());
-            businessDTO.setZipCode(business.getZipCode());
-            businessDTO.setPoints(userPoint.getPoints());
-            businessDTOS.add(businessDTO);
-          }
+    if (user.isEmpty()) {
+      return null;
+    }
+    //get points from user
+
+    List<UserPoints> userPoints = pointsRepository.findByUser(user.get());
+    //set points for business based on user
+    for (Business business : businesses) {
+      BusinessDTO businessDTO = new BusinessDTO();
+      businessDTO.setId(business.getId());
+      businessDTO.setName(business.getName());
+      businessDTO.setAddress(business.getAddress());
+      businessDTO.setZipCode(business.getZipCode());
+      businessDTO.setImage(business.getImage());
+      businessDTO.setLogo(business.getLogo());
+      businessDTO.setPoints(0);
+      for (UserPoints userPoint : userPoints) {
+        if (userPoint.getBusiness().getId().equals(business.getId())) {
+          businessDTO.setPoints(userPoint.getPoints());
         }
       }
+      businessDTOS.add(businessDTO);
     }
-
     return businessDTOS;
   }
 

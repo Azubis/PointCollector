@@ -1,45 +1,81 @@
+import 'package:PointCollector/widgets/buy_tab.dart';
+import 'package:PointCollector/widgets/overview_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:PointCollector/models/business_model.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DetailScreen extends StatefulWidget {
+import '../models/product_model.dart';
+import '../widgets/redeem_tab.dart';
+
+class DetailScreen extends ConsumerWidget {
   late final Business business;
+  late final Product product;
 
   DetailScreen({required this.business});
 
   @override
-  State<StatefulWidget> createState() {
-    return _DetailScreenState();
-  }
-}
-
-class _DetailScreenState extends State<DetailScreen> {
-  @override
-  Widget build(BuildContext context) {
-    Business business = widget.business; // Access the Business object
-
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return DefaultTabController(
+      length: 3,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Name: ${business.name}',
-            style: TextStyle(fontSize: 18),
+          TabBar(
+            indicator: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: Colors.blue, width: 3),
+              ),
+            ),
+            labelColor: Colors.blue, // Set the color of the selected tab label
+            unselectedLabelColor:
+                Colors.grey, // Set the color of unselected tab labels
+            labelStyle: TextStyle(
+                fontSize: 16,
+                fontWeight:
+                    FontWeight.bold), // Set the style of the selected tab label
+            unselectedLabelStyle: TextStyle(
+                fontSize: 14), // Set the style of unselected tab labels
+            tabs: [
+              Tab(text: 'Overview'),
+              Tab(text: 'Buy'),
+              Tab(text: 'Redeem'),
+            ],
           ),
-          SizedBox(height: 10),
-          Text(
-            'Address: ${business.address}',
-            style: TextStyle(fontSize: 16),
+          Column(
+            children: [
+              Image.asset(
+                business.image,
+                width: MediaQuery.of(context).size.width,
+                fit: BoxFit.cover,
+                height: 150,
+              ),
+              SizedBox.fromSize(size: Size(0, 20)),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                        child: Text("Point Count: ",
+                            style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.bold))),
+                    Center(
+                        child: Text("${business.points}",
+                            style: TextStyle(
+                                fontSize: 35,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue))),
+                  ],
+                ),
+              ),
+            ],
           ),
-          SizedBox(height: 10),
-          Text(
-            'Zip Code: ${business.zipCode}',
-            style: TextStyle(fontSize: 16),
-          ),
-          SizedBox(height: 10),
-          Text(
-            'Points: ${business.points.toString()}',
-            style: TextStyle(fontSize: 16),
+          Expanded(
+            child: TabBarView(
+              children: [
+                OverviewTab(business: business),
+                BuyTab(business: business),
+                RedeemTab(business: business),
+              ],
+            ),
           ),
         ],
       ),

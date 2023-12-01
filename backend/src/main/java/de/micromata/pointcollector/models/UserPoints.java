@@ -8,6 +8,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -30,4 +32,13 @@ public class UserPoints
 
   private int points;
 
+  public UserPoints(PointUser user, Business business, int points)
+  {
+    this.user = user;
+    this.business = business;
+    this.points = points;
+  }
+  public UserPoints()
+  {
+  }
 }

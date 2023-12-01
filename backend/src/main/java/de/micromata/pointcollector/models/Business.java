@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -22,8 +24,22 @@ public class Business {
   public String name;
   public String address;
   public String zipCode;
+  public String image;
+  public String logo;
 
   @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Product> products;
 
+  public Business(String name, String address, String zipCode, String image, String logo) {
+    this.name = name;
+    this.address = address;
+    this.zipCode = zipCode;
+    this.image = image;
+    this.logo = logo;
+  }
+
+  public Business()
+  {
+
+  }
 }

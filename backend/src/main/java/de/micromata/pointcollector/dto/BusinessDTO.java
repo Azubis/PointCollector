@@ -11,6 +11,8 @@ public class BusinessDTO {
   public String address;
   public String zipCode;
   public int points;
+  public String image;
+  public String logo;
 
 
 }

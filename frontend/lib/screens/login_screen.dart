@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
     final body = json.encode(loginModel);
 
     final response = await http.post(url, headers: headers, body: body);
-
+    log.d('response: ' + response.toString());
     if (response.statusCode == 200) {
       // Erfolgreiche Anfrageverarbeitung
       return true;
@@ -38,7 +38,7 @@ class LoginScreen extends StatelessWidget {
       final String password = passwordController.text;
 
 
-      final loginModel = LoginModel(name: username, password: password);
+      final loginModel = LoginModel(identifier: username, password: password);
 
       log.d('_onLoginButtonPressed');
 
@@ -53,6 +53,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Login Screen'),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Center(
         child: Padding(
