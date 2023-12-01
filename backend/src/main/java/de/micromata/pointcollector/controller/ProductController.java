@@ -1,4 +1,4 @@
-package de.micromata.pointcollector.controller_temp;
+package de.micromata.pointcollector.controller;
 
 import de.micromata.pointcollector.dto.ProductDTO;
 import de.micromata.pointcollector.models.Business;
