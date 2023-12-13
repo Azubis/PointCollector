@@ -64,7 +64,11 @@ class BusinessListItem extends StatelessWidget {
         // set the current screen to the detail screen
         ref
             .read(currentScreenProvider.notifier)
-            .setCurrentScreen(DetailScreen(business: snapshot.data![index]));
+            .setCurrentScreen(DetailScreen());
+        ref
+            .read(singleBusinessProvider.notifier)
+            .fetchBusinessById(snapshot.data![index].id);
+
       },
       child: Container(
         padding: EdgeInsets.all(10),

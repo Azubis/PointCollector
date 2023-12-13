@@ -5,7 +5,7 @@ class Business {
   final String zipCode;
   final String image;
   final String logo;
-  final int points;
+  int points;
 
   Business({
     required this.id,
@@ -31,5 +31,17 @@ class Business {
 
   static List<Business> fromJsonList(List<dynamic> jsonList) {
     return jsonList.map((json) => Business.fromJson(json)).toList();
+  }
+
+  Business copyWith({int? points}) {
+    return Business(
+      id: this.id,
+      name: this.name,
+      address: this.address,
+      zipCode: this.zipCode,
+      image: this.image,
+      logo: this.logo,
+      points: points ?? this.points,
+    );
   }
 }

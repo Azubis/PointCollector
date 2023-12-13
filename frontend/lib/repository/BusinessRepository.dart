@@ -49,4 +49,45 @@ class BusinessRepository {
 
   void set isLoaded(bool value) => _isLoaded = value;
   Future<List<Business>> get businesses => _businesses;
+
+  void setPoints(int businessId, int points) {
+    _businesses.then((businesses) {
+      final businessToUpdate = businesses.firstWhere((business) => business
+          .id == businessId);
+
+      businessToUpdate.points = points;
+
+      // Notify listeners or update state if using a state management solution like Riverpod
+      // For simplicity, let's assume you have a Riverpod provider for businesses
+      // and it's a NotifierProvider<BusinessNotifier, List<Business>>.
+
+      // Replace the following line with your actual state management approach
+      // businessProvider.notifier.setPoints(businessToUpdate);
+
+      // If using Riverpod, you can do something like:
+      // read(businessProvider).setPoints(businessId, points);
+    });
+  }
+
+  Future<Business> fetchBusinessById(int id) {
+    return _businesses.then((businesses) {
+      return businesses.firstWhere((business) => business.id == id, orElse:
+          () => throw Exception('Business with id $id not found'));
+    });
+    }
+
+  Future<List<Business>> saveSingleBusiness(Business updatedBusiness) {
+    return _businesses.then((businesses) {
+      final updatedList = businesses.map((existingBusiness) {
+        if (existingBusiness.id == updatedBusiness.id) {
+          // Create a new instance with updated information
+          return updatedBusiness;
+        } else {
+          return existingBusiness;
+        }
+      }).toList();
+      return _businesses = Future.value(updatedList);
+    });
+  }
+
 }
