@@ -5,10 +5,7 @@ import de.micromata.pointcollector.models.Business;
 import de.micromata.pointcollector.models.Product;
 import de.micromata.pointcollector.repository.BusinessRepository;
 import de.micromata.pointcollector.repository.ProductRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class ProductController
 {
 

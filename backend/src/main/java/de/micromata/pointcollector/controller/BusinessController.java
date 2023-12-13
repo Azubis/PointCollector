@@ -7,11 +7,7 @@ import de.micromata.pointcollector.models.UserPoints;
 import de.micromata.pointcollector.repository.BusinessRepository;
 import de.micromata.pointcollector.repository.PointsRepository;
 import de.micromata.pointcollector.repository.UserRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class BusinessController
 {
 

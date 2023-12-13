@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
-
+@CrossOrigin
 public class UserController {
 
 
@@ -23,7 +23,6 @@ public class UserController {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 
-	@CrossOrigin
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLoginDTO userDTO) throws Exception {
 
