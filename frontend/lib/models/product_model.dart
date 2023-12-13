@@ -1,4 +1,4 @@
-class ProductModel {
+class Product {
   final String image;
   final String name;
   final double price;
@@ -6,7 +6,7 @@ class ProductModel {
   final int redeemCost;
   final bool isRedeemable;
 
-  ProductModel({
+  Product({
     required this.image,
     required this.name,
     required this.price,
@@ -15,18 +15,18 @@ class ProductModel {
     required this.isRedeemable,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    return ProductModel(
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
       image: json['image'],
       name: json['name'],
-      price: json['price'],
+      price: json['price'].toDouble(),
       pointsGain: json['pointsGain'],
       redeemCost: json['redeemCost'],
       isRedeemable: json['isRedeemable'],
     );
   }
 
-  static List<ProductModel> fromJsonList(List<dynamic> jsonList) {
-    return jsonList.map((json) => ProductModel.fromJson(json)).toList();
+  static List<Product> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((json) => Product.fromJson(json)).toList();
   }
 }

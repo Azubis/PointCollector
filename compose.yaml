@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: 'postgres:15'
+    environment:
+      - 'POSTGRES_DB=pointcollectorDB'
+      - 'POSTGRES_PASSWORD=rootBear'
+      - 'POSTGRES_USER=myuser'
+    ports:
+      - '5432:5432'

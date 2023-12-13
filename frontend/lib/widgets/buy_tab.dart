@@ -6,13 +6,13 @@ import '../models/product_model.dart';
 import '../states/riverpod_states.dart';
 
 class BuyTab extends ConsumerWidget {
-  final Business business;
+  final AsyncSnapshot<Business> business;
   BuyTab({required this.business});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Future<List<ProductModel>> products = ref.watch(productProvider);
-    return FutureBuilder<List<ProductModel>>(
+    Future<List<Product>> products = ref.watch(productProvider);
+    return FutureBuilder<List<Product>>(
         future: products,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -23,7 +23,7 @@ class BuyTab extends ConsumerWidget {
                 onRefresh: () async {
                   ref
                       .read(productProvider.notifier)
-                      .reloadProducts(business.id);
+                      .reloadProducts(business.data!.id);
                 },
                 child: ListView.separated(
                   padding: const EdgeInsets.all(8),

@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Point Collector',
       theme: globalTheme,
-      home: LoginScreen(),
+      home: Navigation(),
       routes: {
         '/home': (context) => Navigation(),
       },

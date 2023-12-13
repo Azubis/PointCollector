@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 // this class. Meaning you always work with the same data
 // and only receive new businesses on a manual reload
 class ProductRepository {
-  late Future<List<ProductModel>> _products;
+  late Future<List<Product>> _products;
   int _businessLoaded = 0;
 
   // the _singleton variable is initialized with an instance of the class
@@ -23,7 +23,7 @@ class ProductRepository {
   // The internal constructor is only called once
   ProductRepository._internal();
 
-  Future<List<ProductModel>> fetchProducts(int id) async {
+  Future<List<Product>> fetchProducts(int id) async {
     if (_businessLoaded == id) {
       // If data is already fetched, return the cached result
       return _products;
@@ -36,7 +36,7 @@ class ProductRepository {
       if (response.statusCode == 200) {
         List<dynamic> jsonData = json.decode(response.body);
 
-        _products = Future.value(ProductModel.fromJsonList(jsonData));
+        _products = Future.value(Product.fromJsonList(jsonData));
         _businessLoaded = id;
         return _products;
       } else {
@@ -51,5 +51,5 @@ class ProductRepository {
     _businessLoaded = 0;
   }
 
-  Future<List<ProductModel>> get products => _products;
+  Future<List<Product>> get products => _products;
 }

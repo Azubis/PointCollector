@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../models/business_model.dart';
-import '../../models/product_model.dart';
-import '../../states/riverpod_states.dart';
-import '../states/user_states.dart';
+import '../models/business_model.dart';
+import '../models/product_model.dart';
+import '../states/riverpod_states.dart';
 
 class RedeemTab extends ConsumerWidget {
-  final Business business;
+  final AsyncSnapshot<Business> business;
   RedeemTab({required this.business});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Future<List<ProductModel>> products = ref.watch(productProvider);
-    int redeemPoints = ref.watch(redeemPointProvider);
-    return FutureBuilder<List<ProductModel>>(
+    Future<List<Product>> products = ref.watch(productProvider);
+    return FutureBuilder<List<Product>>(
         future: products,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -25,7 +23,7 @@ class RedeemTab extends ConsumerWidget {
                 onRefresh: () async {
                   ref
                       .read(productProvider.notifier)
-                      .reloadProducts(business.id);
+                      .reloadProducts(business.data!.id);
                 },
                 child: ListView.separated(
                   padding: const EdgeInsets.all(8),
@@ -66,10 +64,12 @@ class RedeemTab extends ConsumerWidget {
                         child: Container(),
                       ),
                           ElevatedButton(
-                            onPressed: redeemPoints >= snapshot.data![index].redeemCost
+                            onPressed: business.data!.points >= snapshot
+                                .data![index].redeemCost
                                 ? () {
-                              ref.read(redeemPointProvider.notifier)
-                                  .setPoints(redeemPoints - snapshot.data![index].redeemCost);
+                              ref.read(singleBusinessProvider.notifier)
+                                  .modifyPointsForBusiness(- snapshot
+                                  .data![index].redeemCost);
                             }
                                 : null, // Set onPressed to null to disable the button
                             style: ButtonStyle(
@@ -92,6 +92,9 @@ class RedeemTab extends ConsumerWidget {
                           )
                       ],
                       );
+                    }
+                    else {
+                      return Container();
                     }
                   },
                   separatorBuilder: (BuildContext context, int index) =>

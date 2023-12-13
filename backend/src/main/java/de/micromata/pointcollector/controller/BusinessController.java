@@ -1,49 +1,81 @@
 package de.micromata.pointcollector.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import de.micromata.pointcollector.dto.BusinessDTO;
+import de.micromata.pointcollector.models.Business;
+import de.micromata.pointcollector.models.PointUser;
+import de.micromata.pointcollector.models.UserPoints;
+import de.micromata.pointcollector.repository.BusinessRepository;
+import de.micromata.pointcollector.repository.PointsRepository;
+import de.micromata.pointcollector.repository.UserRepository;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
+import java.util.Optional;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api")
+@CrossOrigin
 public class BusinessController
 {
 
-  @GetMapping("/businesses")
-  public List<Map<String, Object>> getAll() {
-    List<Map<String, Object>> shopEntries = new ArrayList<>();
+  private final BusinessRepository businessRepository;
+  private final PointsRepository pointsRepository;
+  private final UserRepository userRepository;
 
-    // Hardcoded shop entries
-    shopEntries.add(createShopEntry("Supermart", "123 Market Street", "10115", 54));
-    shopEntries.add(createShopEntry("Electro World", "456 Tech Avenue", "10777", 89));
-    shopEntries.add(createShopEntry("Fashion Trend", "789 Style Boulevard", "12103", 37));
-    shopEntries.add(createShopEntry("Gadget Haven", "321 Tech Road", "13127", 62));
-    shopEntries.add(createShopEntry("Book Nook", "567 Literary Lane", "10555", 43));
-    shopEntries.add(createShopEntry("Sport Zone", "876 Active Avenue", "12045", 78));
-    shopEntries.add(createShopEntry("Home Decor Emporium", "432 Interior Street", "10988", 56));
-    shopEntries.add(createShopEntry("Pet Paradise", "789 Pet Park Place", "12233", 91));
-    shopEntries.add(createShopEntry("Bakery Delights", "101 Sweet Street", "10876", 68));
 
-    //randomize the order of the shops
-    Collections.shuffle(shopEntries);
 
-    return shopEntries;
+  public BusinessController(BusinessRepository businessRepository, PointsRepository pointsRepository, UserRepository userRepository) {
+    this.businessRepository = businessRepository;
+    this.pointsRepository = pointsRepository;
+    this.userRepository = userRepository;
+
   }
 
-  private Map<String, Object> createShopEntry(String name, String address, String zipCode, int points) {
-    Map<String, Object> shopEntry = new HashMap<>();
-    shopEntry.put("name", name);
-    shopEntry.put("address", address);
-    shopEntry.put("zipCode", zipCode);
-    shopEntry.put("points", points);
-    return shopEntry;
+  @GetMapping("/businesses")
+  public List<BusinessDTO> getAll() {
+    //get all businesses from database
+    List<Business> businesses = businessRepository.findAll();
+    List<BusinessDTO> businessDTOS = new ArrayList<>();
+    //find user by name
+    Optional<PointUser> user = userRepository.findById(1L);
+
+    if (user.isEmpty()) {
+      return null;
+    }
+    //get points from user
+
+    List<UserPoints> userPoints = pointsRepository.findByUser(user.get());
+    //set points for business based on user
+    for (Business business : businesses) {
+      BusinessDTO businessDTO = new BusinessDTO();
+      businessDTO.setId(business.getId());
+      businessDTO.setName(business.getName());
+      businessDTO.setAddress(business.getAddress());
+      businessDTO.setZipCode(business.getZipCode());
+      businessDTO.setImage(business.getImage());
+      businessDTO.setLogo(business.getLogo());
+      businessDTO.setPoints(0);
+      for (UserPoints userPoint : userPoints) {
+        if (userPoint.getBusiness().getId().equals(business.getId())) {
+          businessDTO.setPoints(userPoint.getPoints());
+        }
+      }
+      businessDTOS.add(businessDTO);
+    }
+    return businessDTOS;
+  }
+
+  @PostMapping("/create/businesses")
+  public Business createBusiness(@RequestBody Business business) {
+    //check if business is valid
+    if (business.getName() == null || business.getAddress() == null || business.getZipCode() == null) {
+      return null;
+    }
+
+    businessRepository.save(business);
+    return business;
+
   }
 
 }

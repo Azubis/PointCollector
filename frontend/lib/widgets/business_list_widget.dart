@@ -64,7 +64,11 @@ class BusinessListItem extends StatelessWidget {
         // set the current screen to the detail screen
         ref
             .read(currentScreenProvider.notifier)
-            .setCurrentScreen(DetailScreen(business: snapshot.data![index]));
+            .setCurrentScreen(DetailScreen());
+        ref
+            .read(singleBusinessProvider.notifier)
+            .fetchBusinessById(snapshot.data![index].id);
+
       },
       child: Container(
         padding: EdgeInsets.all(10),
@@ -90,7 +94,7 @@ class BusinessListItem extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(48),
                   child: Image.asset(
-                    'assets/images/business_image_0.png',
+                    snapshot.data![index].logo,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -133,7 +137,7 @@ class BusinessListItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "500",
+                      snapshot.data![index].points.toString(),
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,

@@ -3,6 +3,7 @@ import 'package:PointCollector/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+
 import '../models/business_model.dart';
 import '../models/product_model.dart';
 import '../models/user_model.dart';
@@ -50,6 +51,10 @@ class BusinessState extends StateNotifier<Future<List<Business>>> {
     BusinessRepository().isLoaded = false;
     state = BusinessRepository().fetchBusinesses();
   }
+
+  void saveSingleBusinesses(Business business) {
+    state = BusinessRepository().saveSingleBusiness(business);
+  }
 }
 
 final businessProvider =
@@ -57,7 +62,28 @@ final businessProvider =
   return BusinessState();
 });
 
-class ProductState extends StateNotifier<Future<List<ProductModel>>> {
+
+class SingleBusinessState extends StateNotifier<Future<Business>> {
+  SingleBusinessState() : super(BusinessRepository().fetchBusinesses().then((value) => value.first));
+
+  void fetchBusinessById(int id) {
+    state = BusinessRepository().fetchBusinessById(id);
+  }
+
+  void modifyPointsForBusiness(int points) async {
+    final business = await state;
+    final updatedBusinessWithPoints = business.copyWith(points: business.points + points);
+    state = Future.value(updatedBusinessWithPoints);
+    BusinessState().saveSingleBusinesses(updatedBusinessWithPoints);
+  }
+}
+
+final singleBusinessProvider =
+  StateNotifierProvider<SingleBusinessState, Future<Business>>((ref) {
+  return SingleBusinessState();
+});
+
+class ProductState extends StateNotifier<Future<List<Product>>> {
   ProductState() : super(ProductRepository().fetchProducts(0));
 
   //function to reload the businesses
@@ -73,6 +99,6 @@ class ProductState extends StateNotifier<Future<List<ProductModel>>> {
 }
 
 final productProvider =
-    StateNotifierProvider<ProductState, Future<List<ProductModel>>>((ref) {
+    StateNotifierProvider<ProductState, Future<List<Product>>>((ref) {
   return ProductState();
 });
