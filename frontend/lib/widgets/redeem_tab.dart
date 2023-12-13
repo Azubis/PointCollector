@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/business_model.dart';
 import '../../models/product_model.dart';
 import '../../states/riverpod_states.dart';
+import '../states/user_states.dart';
 
 class RedeemTab extends ConsumerWidget {
   final Business business;
@@ -12,6 +13,7 @@ class RedeemTab extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future<List<ProductModel>> products = ref.watch(productProvider);
+    int redeemPoints = ref.watch(redeemPointProvider);
     return FutureBuilder<List<ProductModel>>(
         future: products,
         builder: (context, snapshot) {
@@ -36,12 +38,59 @@ class RedeemTab extends ConsumerWidget {
                           Image.asset(snapshot.data![index].image,
                               width: 100, height: 100),
                           SizedBox.fromSize(size: Size(20, 0)),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start, //
+                            // Align text to the start
+                            children:[
                           Text(snapshot.data![index].name,
-                              style: const TextStyle(fontSize: 18)),
+                              style: const TextStyle(fontSize: 18,
+                                  fontWeight: FontWeight.bold)),
                           SizedBox.fromSize(size: Size(20, 0)),
-                          Text(snapshot.data![index].redeemCost.toString(),
-                              style: const TextStyle(fontSize: 18)),
+                          Row(
+                            children: [
+                              Text(snapshot.data![index].redeemCost.toString(),
+                                style: const TextStyle(fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue),
+                              ),
+                              Icon(
+                                Icons.auto_awesome_rounded,
+                                size: 20,
+                                color: Colors.blue,
+                              ),
+                            ],
+                          ),
                         ],
+                      ),
+                      Expanded(
+                        child: Container(),
+                      ),
+                          ElevatedButton(
+                            onPressed: redeemPoints >= snapshot.data![index].redeemCost
+                                ? () {
+                              ref.read(redeemPointProvider.notifier)
+                                  .setPoints(redeemPoints - snapshot.data![index].redeemCost);
+                            }
+                                : null, // Set onPressed to null to disable the button
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
+                                if (states.contains(MaterialState.disabled)) {
+                                  // Button is disabled, return grey color
+                                  return Colors.grey;
+                                }
+                                // Button is enabled, return the default color
+                                return Colors.blue;
+                              }),
+                            ),
+                            child: const Text(
+                              'Redeem',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                      ],
                       );
                     }
                   },

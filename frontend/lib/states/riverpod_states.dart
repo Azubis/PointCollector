@@ -69,6 +69,7 @@ class ProductState extends StateNotifier<Future<List<ProductModel>>> {
     ProductRepository().setLoadedFalse();
     state = ProductRepository().fetchProducts(id);
   }
+
 }
 
 final productProvider =

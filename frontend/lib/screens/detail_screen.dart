@@ -1,3 +1,4 @@
+import 'package:PointCollector/states/user_states.dart';
 import 'package:PointCollector/widgets/buy_tab.dart';
 import 'package:PointCollector/widgets/overview_tab.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class DetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    int redeemPoints = ref.watch(redeemPointProvider);
     return DefaultTabController(
       length: 3,
       child: Column(
@@ -56,13 +58,19 @@ class DetailScreen extends ConsumerWidget {
                     Center(
                         child: Text("Point Count: ",
                             style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold))),
+                                fontSize:
+                                25, fontWeight: FontWeight.bold))),
                     Center(
-                        child: Text("500",
+                        child: Text(redeemPoints.toString(),
                             style: TextStyle(
-                                fontSize: 35,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blue))),
+                              fontSize: 35,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue))),
+                    Center(
+                      child: Icon(
+                        Icons.auto_awesome_rounded,
+                        size: 24,
+                        color: Colors.blue)),
                   ],
                 ),
               ),
