@@ -12,7 +12,7 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
 
   Future<bool> login(LoginModel loginModel) async {
-    final url = Uri.parse('http://localhost:8080/api/user/login');
+    final url = Uri.parse('https://pointcollector.onrender.com/api/user/login');
     final headers = {
       'Content-Type': 'application/json',
       // Weitere Header, die Sie benötigen, wie z.B. Auth-Token

@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: globalTheme,
       home: Navigation(),
       routes: {
-        '/home': (context) => Navigation(),
+        '/login': (context) => Navigation(),
       },
       debugShowCheckedModeBanner: false,
     );

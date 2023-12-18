@@ -31,7 +31,7 @@ class ProductRepository {
 
     try {
       final response = await http.get(
-          Uri.parse('http://localhost:8080/api/products/' + id.toString()));
+          Uri.parse('https://pointcollector.onrender.com/api/products/' + id.toString()));
 
       if (response.statusCode == 200) {
         List<dynamic> jsonData = json.decode(response.body);
