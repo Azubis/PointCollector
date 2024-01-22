@@ -30,7 +30,7 @@ class BusinessRepository {
 
     try {
       final response =
-          await http.get(Uri.parse('http://localhost:8080/api/businesses'));
+          await http.get(Uri.parse('https://pointcollector.onrender.com/api/businesses'));
 
       if (response.statusCode == 200) {
         List<dynamic> jsonData = json.decode(response.body);
