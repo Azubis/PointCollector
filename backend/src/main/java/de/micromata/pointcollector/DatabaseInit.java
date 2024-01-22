@@ -48,7 +48,7 @@ public class DatabaseInit {
       // Insert test data into the Product table
       Product product1 = new Product("assets/images/bigmac.jpeg", "BigMac", 1.0f, 1, 1, false, business1);
       Product product2 = new Product("assets/images/brezel.jpeg", "Brezel", 2.5f, 2, 2, true, business1);
-      Product product3 = new Product("assets/images/schokobroetchen.jpeg", "Schokobrötchen", 3.5f, 5, 5, true, business1);
+      Product product3 = new Product("assets/images/schokobroetchen.jpeg", "Broetchen", 3.5f, 5, 5, true, business1);
       Product product4 = new Product("assets/images/coffee.jpeg", "Kaffee", 4.5f, 10, 10, true, business1);
       Product product5 = new Product("assets/images/kuchen.jpeg", "Kuchen", 5.5f, 15, 15, true, business1);
 
